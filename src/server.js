@@ -2,8 +2,13 @@ const express = require("express");
 const PDFDocument = require("pdfkit");
 
 const app = express();
-app.use(express.urlencoded({ extended: true }));
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+const users = [];
+
+// Home Page
 app.get("/", (req, res) => {
   res.send(`
     <h2>UniDoc - Internship Request Letter</h2>
@@ -28,11 +33,39 @@ app.get("/", (req, res) => {
   `);
 });
 
+// Create User API
+app.post("/api/users", (req, res) => {
+  const { fullName, studentId, department } = req.body;
+
+  if (!fullName || !studentId || !department) {
+    return res.status(400).json({ message: "Missing required fields" });
+  }
+
+  const newUser = {
+    id: users.length + 1,
+    fullName,
+    studentId,
+    department,
+  };
+
+  users.push(newUser);
+  res.status(201).json(newUser);
+});
+
+// Get All Users API
+app.get("/api/users", (req, res) => {
+  res.json(users);
+});
+
+// Generate PDF
 app.post("/generate", (req, res) => {
   const { fullName, studentId, department, company, date } = req.body;
 
   res.setHeader("Content-Type", "application/pdf");
-  res.setHeader("Content-Disposition", 'attachment; filename="internship_letter.pdf"');
+  res.setHeader(
+    "Content-Disposition",
+    'attachment; filename="internship_letter.pdf"'
+  );
 
   const doc = new PDFDocument();
   doc.pipe(res);
@@ -48,7 +81,7 @@ app.post("/generate", (req, res) => {
 
   doc.text(
     `I am ${fullName} (Student ID: ${studentId}), a student in the ${department} department. ` +
-    `I kindly request an internship letter addressed to ${company} to support my internship application.`
+      `I kindly request an internship letter addressed to ${company} to support my internship application.`
   );
   doc.moveDown();
 
