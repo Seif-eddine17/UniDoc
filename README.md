@@ -1,40 +1,27 @@
 # UniDoc
 
-UniDoc is a simple backend project built with Node.js and Express.
+UniDoc is a simple Node.js and Express backend project that helps university students generate professional internship request letters in PDF format.
 
-This project is part of my learning journey. The goal is to build a system that can manage users and generate PDF documents.
+This project is part of my learning journey in backend development.
 
-## What this project does
+## What it does
 
-- Create users
-- Connect to a database
-- Generate PDF files
-- Provide API endpoints
+- Provides a clean web form to collect student and company information
+- Generates a well-formatted PDF internship request letter
+- Includes basic API endpoints to create and list users (students)
+- Uses pdfkit to create downloadable PDF documents
 
-## Technologies Used
+## Technologies
 
 - Node.js
-- Express
-- JavaScript
+- Express.js
+- pdfkit (for PDF generation)
+- HTML + CSS (simple responsive form)
 
-## How to Run the Project
+## How to run the project
 
-1. Clone the repository:
+1. Clone the repository
 
-git clone https://github.com/Seif-eddine17/UniDoc.git
-
-2. Go into the project folder:
-
-cd UniDoc
-
-3. Install dependencies:
-
-npm install
-
-4. Start the server:
-
-node server.js
-
-## Note
-
-This project is still under development and will be improved over time.
+   ```bash
+   git clone https://github.com/Seif-eddine17/UniDoc.git
+   cd UniDoc
